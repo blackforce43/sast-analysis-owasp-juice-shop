@@ -1,0 +1,2760 @@
+
+
+Security Report
+
+=====================================
+
+Rules: 
+https://docs.bearer.com/reference/rules [v0.48.1]
+
+Language    Default Rules  Custom Rules  Files  
+JavaScript  87             0             71224  
+Python      88             0             177    
+PHP         69             0             2      
+Go          72             0             1      
+Java        80             0             1      
+
+
+CRITICAL: Usage of hard-coded secret [CWE-798]
+https://docs.bearer.com/reference/rules/javascript_express_hardcoded_secret
+To ignore this finding, run: bearer ignore add c095a5cc1948bae67c38b5c5d85eb4f4_0
+
+File: juice-shop/lib/insecurity.ts:56
+
+ 56 export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
+
+CRITICAL: Unsanitized user input in 'eval' type function [CWE-95]
+https://docs.bearer.com/reference/rules/javascript_lang_eval_user_input
+To ignore this finding, run: bearer ignore add 07e54b106f46e8d2158d7cc39518dab0_0
+
+File: juice-shop/routes/b2bOrder.ts:22
+
+ 22         vm.createContext(sandbox)
+
+CRITICAL: Unsanitized user input in 'eval' type function [CWE-95]
+https://docs.bearer.com/reference/rules/javascript_lang_eval_user_input
+To ignore this finding, run: bearer ignore add 07e54b106f46e8d2158d7cc39518dab0_1
+
+File: juice-shop/routes/b2bOrder.ts:23
+
+ 23         vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+
+CRITICAL: Unsanitized user input in 'eval' type function [CWE-95]
+https://docs.bearer.com/reference/rules/javascript_lang_eval_user_input
+To ignore this finding, run: bearer ignore add 2e7366cb9fbd9efb99c52905ffd6e3e7_0
+
+File: juice-shop/routes/userProfile.ts:62
+
+ 62         username = eval(code) // eslint-disable-line no-eval
+
+CRITICAL: Usage of hard-coded secret [CWE-798]
+https://docs.bearer.com/reference/rules/javascript_lang_hardcoded_secret
+To ignore this finding, run: bearer ignore add d699b64784f6ca1135369f86e4b64ecb_0
+
+File: juice-shop/lib/insecurity.ts:44
+
+ 44 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
+
+CRITICAL: Usage of hard-coded secret [CWE-798]
+https://docs.bearer.com/reference/rules/javascript_lang_hardcoded_secret
+To ignore this finding, run: bearer ignore add d699b64784f6ca1135369f86e4b64ecb_1
+
+File: juice-shop/lib/insecurity.ts:54
+
+ 54 export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
+
+CRITICAL: Usage of hard-coded secret [CWE-798]
+https://docs.bearer.com/reference/rules/javascript_lang_hardcoded_secret
+To ignore this finding, run: bearer ignore add d699b64784f6ca1135369f86e4b64ecb_2
+
+File: juice-shop/lib/insecurity.ts:152
+
+ 152   const hmac = crypto.createHmac('sha256', privateKey)
+
+CRITICAL: Leakage of hard-coded secret in JWT [CWE-798]
+https://docs.bearer.com/reference/rules/javascript_lang_jwt_hardcoded_secret
+To ignore this finding, run: bearer ignore add 50ebccec98d14333da6adb3b94c79730_0
+
+File: juice-shop/lib/insecurity.ts:56
+
+ 56 export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 2422999ee983c379479a0d13296d2b45_0
+
+File: juice-shop/data/static/codefixes/dbSchemaChallenge_1.ts:5
+
+ 5     models.sequelize.query("SELECT * FROM Products WHERE ((name LIKE '%"+criteria+"%' OR description LIKE '%"+criteria+"%') AND deletedAt IS NULL) ORDER BY name")
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 8014e30891e8e3cb3c4a378fcf1afa38_0
+
+File: juice-shop/data/static/codefixes/dbSchemaChallenge_3.ts:11
+
+ 11     models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add e3d18d5f0ca1f301fa884039dc723bf6_0
+
+File: juice-shop/data/static/codefixes/loginAdminChallenge_1.ts:20
+
+ 20     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 4b0883d52334dfd9a4acce2fcf810121_0
+
+File: juice-shop/data/static/codefixes/loginBenderChallenge_1.ts:20
+
+ 20     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 4a25d479d29e305cf7b9b7181f917eb8_0
+
+File: juice-shop/data/static/codefixes/loginBenderChallenge_4.ts:17
+
+ 17     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add df98e54f62e0cc9172446bbd0361c29c_0
+
+File: juice-shop/data/static/codefixes/loginJimChallenge_2.ts:17
+
+ 17     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 1b0805db0c0342c03908f442d4972b13_0
+
+File: juice-shop/data/static/codefixes/loginJimChallenge_4.ts:20
+
+ 20     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 7e9979f44c0dbd99c76619f48c4245fa_0
+
+File: juice-shop/data/static/codefixes/unionSqlInjectionChallenge_1.ts:6
+
+ 6     models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add d6273bb4e3195d87ba54a7ca10db72be_0
+
+File: juice-shop/data/static/codefixes/unionSqlInjectionChallenge_3.ts:10
+
+ 10     models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 1c2a6e42ca5adc2c078fee1a7cb1a787_0
+
+File: juice-shop/routes/login.ts:34
+
+ 34     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
+
+CRITICAL: Unsanitized input in SQL query [CWE-89]
+https://docs.bearer.com/reference/rules/javascript_lang_sql_injection
+To ignore this finding, run: bearer ignore add 626e8a24818faf605935d6ca0f0f748f_0
+
+File: juice-shop/routes/search.ts:23
+
+ 23     models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge
+
+CRITICAL: Unsanitized user input in deserialization method [CWE-502]
+https://docs.bearer.com/reference/rules/javascript_lang_unsafe_deserialization
+To ignore this finding, run: bearer ignore add a5c85e9a268fe1a1f2e5611a370ea685_0
+
+File: juice-shop/routes/vulnCodeFixes.ts:81
+
+ 81       const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+
+CRITICAL: Unsanitized user input in deserialization method [CWE-502]
+https://docs.bearer.com/reference/rules/javascript_lang_unsafe_deserialization
+To ignore this finding, run: bearer ignore add e12d2f6a49a598973883269b06feb4b2_0
+
+File: juice-shop/routes/vulnCodeSnippet.ts:90
+
+ 90     const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+
+HIGH: Unsanitized user input in HTTP response (XSS) [CWE-79]
+https://docs.bearer.com/reference/rules/javascript_express_cross_site_scripting
+To ignore this finding, run: bearer ignore add 972bae18730d10115e89451a622699c6_0
+
+File: juice-shop/routes/userProfile.ts:97
+
+ 97     res.send(fn(user))
+
+HIGH: Unsanitized user input in HTTP send file request [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_external_file_upload
+To ignore this finding, run: bearer ignore add 8643fdcb8411f54a6af5a25deb2da818_0
+
+File: juice-shop/routes/keyServer.ts:14
+
+ 14       res.sendFile(path.resolve('encryptionkeys/', file))
+
+HIGH: Unsanitized user input in HTTP send file request [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_external_file_upload
+To ignore this finding, run: bearer ignore add caf5b22a357fad021743f7b2b8da54b8_0
+
+File: juice-shop/routes/logfileServer.ts:14
+
+ 14       res.sendFile(path.resolve('logs/', file))
+
+HIGH: Unsanitized user input in HTTP send file request [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_external_file_upload
+To ignore this finding, run: bearer ignore add 684ac0da58fe48421abddc5208554ab4_0
+
+File: juice-shop/routes/quarantineServer.ts:14
+
+ 14       res.sendFile(path.resolve('ftp/quarantine/', file))
+
+HIGH: Unsanitized user input in file path [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_path_traversal
+To ignore this finding, run: bearer ignore add 730d1c5106516470d1853a35c4aca01b_0
+
+File: juice-shop/routes/dataErasure.ts:69
+
+ 69       const filePath: string = path.resolve(req.body.layout).toLowerCase()
+
+HIGH: Unsanitized user input in file path [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_path_traversal
+To ignore this finding, run: bearer ignore add f0fdc8f875e9b77313305edb186aec62_0
+
+File: juice-shop/routes/keyServer.ts:14
+
+ 14       res.sendFile(path.resolve('encryptionkeys/', file))
+
+HIGH: Unsanitized user input in file path [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_path_traversal
+To ignore this finding, run: bearer ignore add 51001ae13fdae4f062cec51a842161b2_0
+
+File: juice-shop/routes/logfileServer.ts:14
+
+ 14       res.sendFile(path.resolve('logs/', file))
+
+HIGH: Unsanitized user input in file path [CWE-73]
+https://docs.bearer.com/reference/rules/javascript_express_path_traversal
+To ignore this finding, run: bearer ignore add a59cb4c55fa6ab0b98f1f061b0262ee1_0
+
+File: juice-shop/routes/quarantineServer.ts:14
+
+ 14       res.sendFile(path.resolve('ftp/quarantine/', file))
+
+HIGH: Unsanitized user input in HTTP request (SSRF) [CWE-918]
+https://docs.bearer.com/reference/rules/javascript_express_server_side_request_forgery
+To ignore this finding, run: bearer ignore add c42e77ddf815d96686f81a0e6feb9dbf_0
+
+File: juice-shop/routes/profileImageUrlUpload.ts:24
+
+ 24           const response = await fetch(url)
+
+HIGH: Unsanitized user input in dynamic HTML insertion (XSS) [CWE-79]
+https://docs.bearer.com/reference/rules/javascript_lang_dangerous_insert_html
+To ignore this finding, run: bearer ignore add bf127e52a210d7d5cdb66cacceb977ff_0
+
+File: juice-shop/frontend/src/hacking-instructor/index.ts:73
+
+ 73   const element = document.createElement(tag)
+
+HIGH: Unsanitized user input in dynamic HTML insertion (XSS) [CWE-79]
+https://docs.bearer.com/reference/rules/javascript_lang_dangerous_insert_html
+To ignore this finding, run: bearer ignore add bf127e52a210d7d5cdb66cacceb977ff_1
+
+File: juice-shop/frontend/src/hacking-instructor/index.ts:122
+
+ 122   textBox.innerHTML = snarkdown(hint.text)
+
+HIGH: Unsanitized user input in HTTP request (SSRF) [CWE-918]
+https://docs.bearer.com/reference/rules/javascript_lang_http_url_using_user_input
+To ignore this finding, run: bearer ignore add 8ed612ce6d89f70e214b65244f8793b4_0
+
+File: juice-shop/routes/profileImageUrlUpload.ts:24
+
+ 24           const response = await fetch(url)
+
+HIGH: Usage of manual HTML sanitization (XSS) [CWE-79]
+https://docs.bearer.com/reference/rules/javascript_lang_manual_html_sanitization
+To ignore this finding, run: bearer ignore add 21de2a29f76880dbfbba700acb3cf4b4_0
+
+File: juice-shop/data/static/codefixes/redirectChallenge_3.ts:21
+
+ 21   return str.replace(/[&<>'"]/g,
+ 22     tag => {
+ 23       return ({
+            ...omitted (buffer value 3)
+ 28         '"': '&quot;'
+ 29       }[tag])
+ 30     })
+
+HIGH: Usage of manual HTML sanitization (XSS) [CWE-79]
+https://docs.bearer.com/reference/rules/javascript_lang_manual_html_sanitization
+To ignore this finding, run: bearer ignore add d098ec6c1ec482df2422801759454ad2_0
+
+File: juice-shop/data/static/codefixes/restfulXssChallenge_2.ts:59
+
+ 59       tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+
+HIGH: Unsanitized dynamic input in file path [CWE-22]
+https://docs.bearer.com/reference/rules/javascript_lang_path_traversal
+To ignore this finding, run: bearer ignore add 4161e76ae99975b4259d0e9228df69d5_0
+
+File: juice-shop/data/staticData.ts:8
+
+ 8   const filePath = path.resolve('./data/static/' + file + '.yml')
+
+HIGH: Unsanitized dynamic input in file path [CWE-22]
+https://docs.bearer.com/reference/rules/javascript_lang_path_traversal
+To ignore this finding, run: bearer ignore add f0e7492e80ce50a1aa962aebdf7f5673_0
+
+File: juice-shop/lib/startup/validatePreconditions.ts:120
+
+ 120   return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {
+
+HIGH: Unsanitized dynamic input in file path [CWE-22]
+https://docs.bearer.com/reference/rules/javascript_lang_path_traversal
+To ignore this finding, run: bearer ignore add 587b585fef3fe70bf57a2f0f19565ff2_0
+
+File: juice-shop/routes/fileServer.ts:33
+
+ 33       res.sendFile(path.resolve('ftp/', file))
+
+HIGH: Unsanitized dynamic input in file path [CWE-22]
+https://docs.bearer.com/reference/rules/javascript_lang_path_traversal
+To ignore this finding, run: bearer ignore add 648d172bb8d132f757663d42ab913457_0
+
+File: juice-shop/routes/fileUpload.ts:42
+
+ 42                 const absolutePath = path.resolve('uploads/complaints/' + fileName)
+
+HIGH: Unsanitized user input in raw HTML strings (XSS) [CWE-79]
+https://docs.bearer.com/reference/rules/javascript_lang_raw_html_using_user_input
+To ignore this finding, run: bearer ignore add 6fb3affe9c48b330c893ed13aff89da1_0
+
+File: juice-shop/routes/userProfile.ts:86
+
+ 86     const fn = pug.compile(template)
+
+HIGH: Leakage of sensitive data in local storage [CWE-312]
+https://docs.bearer.com/reference/rules/javascript_lang_session
+To ignore this finding, run: bearer ignore add f9657c5f0e228532df66e6987928ea19_0
+
+File: juice-shop/frontend/src/app/login/login.component.ts:114
+
+ 114       localStorage.setItem('email', this.user.email)
+
+MEDIUM: Missing revoke method on JWT [CWE-693]
+https://docs.bearer.com/reference/rules/javascript_express_jwt_not_revoked
+To ignore this finding, run: bearer ignore add d5aa377b45e8572a3f1634b5411f5973_0
+
+File: juice-shop/lib/insecurity.ts:54
+
+ 54 export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
+
+MEDIUM: Missing revoke method on JWT [CWE-693]
+https://docs.bearer.com/reference/rules/javascript_express_jwt_not_revoked
+To ignore this finding, run: bearer ignore add d5aa377b45e8572a3f1634b5411f5973_1
+
+File: juice-shop/lib/insecurity.ts:55
+
+ 55 export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
+
+MEDIUM: Unsanitized user input in redirect [CWE-601]
+https://docs.bearer.com/reference/rules/javascript_express_open_redirect
+To ignore this finding, run: bearer ignore add f351c85327733db80d3dc0c23cf794bf_0
+
+File: juice-shop/routes/redirect.ts:19
+
+ 19       res.redirect(toUrl)
+
+MEDIUM: Unsanitized dynamic input in regular expression [CWE-1333]
+https://docs.bearer.com/reference/rules/javascript_lang_dynamic_regex
+To ignore this finding, run: bearer ignore add b1383ae4397a0603f1d7d1985685c117_0
+
+File: juice-shop/lib/codingChallenges.ts:76
+
+ 76     if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+
+MEDIUM: Unsanitized dynamic input in regular expression [CWE-1333]
+https://docs.bearer.com/reference/rules/javascript_lang_dynamic_regex
+To ignore this finding, run: bearer ignore add b1383ae4397a0603f1d7d1985685c117_1
+
+File: juice-shop/lib/codingChallenges.ts:78
+
+ 78     } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) != null) {
+
+MEDIUM: Leakage of sensitive information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger
+To ignore this finding, run: bearer ignore add c44141692e5287b9db7db0edad5e66ca_0
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:116
+
+ 116       console.log(balanceBigNumber)
+
+MEDIUM: Leakage of sensitive information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger
+To ignore this finding, run: bearer ignore add c44141692e5287b9db7db0edad5e66ca_1
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:221
+
+ 221       console.log('ETH balance:', balanceEth, typeof balanceEth)
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add ddce43a74e03835cc5176d883fa5147c_0
+
+File: juice-shop/data/static/codefixes/loginAdminChallenge_1.ts:23
+
+ 23         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 5e0da817764d3f03af9364abb217f48c_0
+
+File: juice-shop/data/static/codefixes/loginAdminChallenge_2.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 8ad315097757a2b3ff7609bcc91bbfc9_0
+
+File: juice-shop/data/static/codefixes/loginAdminChallenge_3.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 60d58748bb9e287277a7aff73bd1ae52_0
+
+File: juice-shop/data/static/codefixes/loginAdminChallenge_4_correct.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add b329a3b5b9ab5d5f0f132c8c44f91071_0
+
+File: juice-shop/data/static/codefixes/loginBenderChallenge_1.ts:23
+
+ 23         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add f199bd3000c79816596f8e7f4c3e43dc_0
+
+File: juice-shop/data/static/codefixes/loginBenderChallenge_2_correct.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 5c0be5357927e85fc8cd03a2efa06eb1_0
+
+File: juice-shop/data/static/codefixes/loginBenderChallenge_3.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add f2f8302695eb708410bda145fd6efbac_0
+
+File: juice-shop/data/static/codefixes/loginBenderChallenge_4.ts:20
+
+ 20         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add f8192230416fc3abc5fa408aa5270b77_0
+
+File: juice-shop/data/static/codefixes/loginJimChallenge_1_correct.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add efffa8a04606868bf214043807bcce15_0
+
+File: juice-shop/data/static/codefixes/loginJimChallenge_2.ts:20
+
+ 20         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add db457612259c823f20ba2d998356c3b4_0
+
+File: juice-shop/data/static/codefixes/loginJimChallenge_3.ts:21
+
+ 21         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add e29c9c01dd359d4a4f313fd27eceb380_0
+
+File: juice-shop/data/static/codefixes/loginJimChallenge_4.ts:23
+
+ 23         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 1d311dd87187433d76469f878c149afb_0
+
+File: juice-shop/frontend/src/app/change-password/change-password.component.ts:87
+
+ 87     if (password !== passwordRepeat) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 8bea3e98a9aa99c090f545cfab18ea05_0
+
+File: juice-shop/frontend/src/app/forgot-password/forgot-password.component.ts:130
+
+ 130     if (password !== passwordRepeat) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 22c71da8e7a35dd1e1e3bd03b4fc99f2_0
+
+File: juice-shop/frontend/src/app/register/register.component.ts:106
+
+ 106     if (password !== passwordRepeat) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 0a9fc6a91f03fe2bc9ede0de2e9d87cf_0
+
+File: juice-shop/frontend/src/hacking-instructor/helpers/helpers.ts:255
+
+ 255       if (window.location.hash === expectedHash) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 86871ecafb473c930b61161f8026e00f_0
+
+File: juice-shop/lib/insecurity.ts:169
+
+ 169   return decodedToken?.data?.role === roles.deluxe && decodedToken?.data?.deluxeToken && decodedToken?.data?.deluxeToken === deluxeToken(decodedToken?.data?.email)
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add d81ef3141d58e8551b76596b89a290d1_0
+
+File: juice-shop/routes/2fa.ts:72
+
+ 72     if (user.totpSecret === '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add d81ef3141d58e8551b76596b89a290d1_1
+
+File: juice-shop/routes/2fa.ts:113
+
+ 113     if (user.password !== security.hash(password)) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add d81ef3141d58e8551b76596b89a290d1_2
+
+File: juice-shop/routes/2fa.ts:117
+
+ 117     if (user.totpSecret !== '') {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add d81ef3141d58e8551b76596b89a290d1_3
+
+File: juice-shop/routes/2fa.ts:158
+
+ 158     if (user.password !== security.hash(password)) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 24e131a07d49a212d37417b226761e7e_0
+
+File: juice-shop/routes/changePassword.ts:39
+
+ 39     if (currentPassword && security.hash(currentPassword) !== loggedInUser.data.password) {
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 24e131a07d49a212d37417b226761e7e_1
+
+File: juice-shop/routes/changePassword.ts:54
+
+ 54         () => user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic')
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add 7d11d6fe20df3420d971b5fdddce370c_0
+
+File: juice-shop/routes/dataExport.ts:100
+
+ 100             challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
+
+MEDIUM: Observable Timing Discrepancy [CWE-208]
+https://docs.bearer.com/reference/rules/javascript_lang_observable_timing
+To ignore this finding, run: bearer ignore add d1bc10543b48b63f88106e770ff22029_0
+
+File: juice-shop/routes/login.ts:37
+
+ 37         if (user.data?.id && user.data.totpSecret !== '') {
+
+MEDIUM: Usage of weak hashing library (MD5) [CWE-328]
+https://docs.bearer.com/reference/rules/javascript_lang_weak_hash_md5
+To ignore this finding, run: bearer ignore add 21fa322fb6bf051a5864e6b1e84c7d36_0
+
+File: juice-shop/Gruntfile.js:78
+
+ 78       md5.update(buffer)
+
+MEDIUM: Usage of weak hashing library (MD5) [CWE-328]
+https://docs.bearer.com/reference/rules/javascript_lang_weak_hash_md5
+To ignore this finding, run: bearer ignore add 42a76a8c10a52b38c1b8729a2f211830_0
+
+File: juice-shop/lib/insecurity.ts:43
+
+ 43 export const hash = (data: string) => crypto.createHash('md5').update(data).digest('hex')
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add f561fa26365b6c05e91ddc3b18fbed28_0
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts:2
+
+ 2   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add f561fa26365b6c05e91ddc3b18fbed28_1
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts:6
+
+ 6   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add f561fa26365b6c05e91ddc3b18fbed28_2
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts:10
+
+ 10   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 7431053925541a9e4feb79b7adbba3a3_0
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_2.ts:2
+
+ 2   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 7431053925541a9e4feb79b7adbba3a3_1
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_2.ts:6
+
+ 6   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 7431053925541a9e4feb79b7adbba3a3_2
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_2.ts:10
+
+ 10   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 7431053925541a9e4feb79b7adbba3a3_3
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_2.ts:14
+
+ 14   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 1bde540dc2dc7eadc0a5563ef8d50744_0
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_3.ts:2
+
+ 2   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 1bde540dc2dc7eadc0a5563ef8d50744_1
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_3.ts:6
+
+ 6   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 1bde540dc2dc7eadc0a5563ef8d50744_2
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_3.ts:10
+
+ 10   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 1bde540dc2dc7eadc0a5563ef8d50744_3
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_3.ts:14
+
+ 14   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 87838e0cadbae4b996ea2ba0ce225f2e_0
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_4.ts:2
+
+ 2   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 87838e0cadbae4b996ea2ba0ce225f2e_1
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_4.ts:6
+
+ 6   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 87838e0cadbae4b996ea2ba0ce225f2e_2
+
+File: juice-shop/data/static/codefixes/accessLogDisclosureChallenge_4.ts:10
+
+ 10   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d0c7f09f2c9927118811b6920976dbde_0
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_1_correct.ts:1
+
+ 1   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d0c7f09f2c9927118811b6920976dbde_1
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_1_correct.ts:5
+
+ 5   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d0c7f09f2c9927118811b6920976dbde_2
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_1_correct.ts:9
+
+ 9   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 84a18ba9c67531b0f1271ecfad9a6522_0
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_2.ts:5
+
+ 5   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 84a18ba9c67531b0f1271ecfad9a6522_1
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_2.ts:9
+
+ 9   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 84a18ba9c67531b0f1271ecfad9a6522_2
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_2.ts:13
+
+ 13   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 8ebcfc95a36b5c20927ea9e466b8715c_0
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_3.ts:2
+
+ 2   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 8ebcfc95a36b5c20927ea9e466b8715c_1
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_3.ts:4
+
+ 4   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 8ebcfc95a36b5c20927ea9e466b8715c_2
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_3.ts:8
+
+ 8   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add 8ebcfc95a36b5c20927ea9e466b8715c_3
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_3.ts:12
+
+ 12   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d1d7fd4f95a122aab479067df9323e6c_0
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_4.ts:2
+
+ 2   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: false }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d1d7fd4f95a122aab479067df9323e6c_1
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_4.ts:6
+
+ 6   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d1d7fd4f95a122aab479067df9323e6c_2
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_4.ts:10
+
+ 10   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add d1d7fd4f95a122aab479067df9323e6c_3
+
+File: juice-shop/data/static/codefixes/directoryListingChallenge_4.ts:14
+
+ 14   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add c539465e8119e4d020831d9f6cf0a973_0
+
+File: juice-shop/server.ts:268
+
+ 268   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add c539465e8119e4d020831d9f6cf0a973_1
+
+File: juice-shop/server.ts:272
+
+ 272   app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add c539465e8119e4d020831d9f6cf0a973_2
+
+File: juice-shop/server.ts:276
+
+ 276   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+
+LOW: Missing access restriction on directory listing [CWE-548]
+https://docs.bearer.com/reference/rules/javascript_express_exposed_dir_listing
+To ignore this finding, run: bearer ignore add c539465e8119e4d020831d9f6cf0a973_3
+
+File: juice-shop/server.ts:280
+
+ 280   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add d05d15f090d0f9089c846241467e2795_0
+
+File: juice-shop/frontend/src/app/code-snippet/code-snippet.component.ts:159
+
+ 159       .map((fix, index) => ({ fix, index, sort: Math.random() }))
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add b1c37456ddbb554e7d59c089b82f6c63_0
+
+File: juice-shop/lib/insecurity.ts:55
+
+ 55 export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add 288bb1ce6419d6cc644d436b38e0f444_0
+
+File: juice-shop/routes/captcha.ts:15
+
+ 15     const firstTerm = Math.floor((Math.random() * 10) + 1)
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add 288bb1ce6419d6cc644d436b38e0f444_1
+
+File: juice-shop/routes/captcha.ts:16
+
+ 16     const secondTerm = Math.floor((Math.random() * 10) + 1)
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add 288bb1ce6419d6cc644d436b38e0f444_2
+
+File: juice-shop/routes/captcha.ts:17
+
+ 17     const thirdTerm = Math.floor((Math.random() * 10) + 1)
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add 288bb1ce6419d6cc644d436b38e0f444_3
+
+File: juice-shop/routes/captcha.ts:19
+
+ 19     const firstOperator = operators[Math.floor((Math.random() * 3))]
+
+LOW: Usage of insufficient random value [CWE-330]
+https://docs.bearer.com/reference/rules/javascript_lang_insufficiently_random_values
+To ignore this finding, run: bearer ignore add 288bb1ce6419d6cc644d436b38e0f444_4
+
+File: juice-shop/routes/captcha.ts:20
+
+ 20     const secondOperator = operators[Math.floor((Math.random() * 3))]
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9062d4c297f222c7856291fe24ae141c_0
+
+File: juice-shop/data/static/codefixes/exposedMetricsChallenge_1.ts:18
+
+ 18     logger.info(colors.cyan(`Server listening on port ${colors.bold(`${port}`)}`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9062d4c297f222c7856291fe24ae141c_1
+
+File: juice-shop/data/static/codefixes/exposedMetricsChallenge_1.ts:21
+
+ 21       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(`${process.env.BASE_PATH}`)} for redirects`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add c206c1bce7ffa25bcf0c5f6a4c1c189b_0
+
+File: juice-shop/data/static/codefixes/exposedMetricsChallenge_2.ts:15
+
+ 15     logger.info(colors.cyan(`Server listening on port ${colors.bold(`${port}`)}`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add c206c1bce7ffa25bcf0c5f6a4c1c189b_1
+
+File: juice-shop/data/static/codefixes/exposedMetricsChallenge_2.ts:18
+
+ 18       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(`${process.env.BASE_PATH}`)} for redirects`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b73e8158047f238747e0a67fd45bd7f6_0
+
+File: juice-shop/data/static/codefixes/exposedMetricsChallenge_3_correct.ts:18
+
+ 18     logger.info(colors.cyan(`Server listening on port ${colors.bold(`${port}`)}`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b73e8158047f238747e0a67fd45bd7f6_1
+
+File: juice-shop/data/static/codefixes/exposedMetricsChallenge_3_correct.ts:21
+
+ 21       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(`${process.env.BASE_PATH}`)} for redirects`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b8d17717880e1bfcf8f0b5d88b51a25a_0
+
+File: juice-shop/data/static/codefixes/registerAdminChallenge_1.ts:32
+
+ 32           console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 07ff45240fef20d487e940b862e8f5dc_0
+
+File: juice-shop/data/static/codefixes/registerAdminChallenge_3_correct.ts:32
+
+ 32           console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4f1a587c69e5552079f40de83c4c951_0
+
+File: juice-shop/data/static/codefixes/registerAdminChallenge_4.ts:32
+
+ 32           console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 6d1145d92c2da60d8947252d4ba8e294_0
+
+File: juice-shop/data/static/codefixes/restfulXssChallenge_1_correct.ts:53
+
+ 53     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 399620e49cbbe252f581da423857603c_0
+
+File: juice-shop/data/static/codefixes/restfulXssChallenge_2.ts:54
+
+ 54     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b63244a34e51e1f0e7eabf32f37dcc5b_0
+
+File: juice-shop/data/static/codefixes/restfulXssChallenge_3.ts:40
+
+ 40     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b803221515faa777f5461c6d50323159_0
+
+File: juice-shop/data/static/codefixes/restfulXssChallenge_4.ts:54
+
+ 54     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 0fb9109eeccd92b64ced2d2f8d73a808_0
+
+File: juice-shop/data/staticData.ts:11
+
+ 11     .catch(() => logger.error('Could not open file: "' + filePath + '"'))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9f1ce248015d1c0c26f39c26ee4873fb_0
+
+File: juice-shop/frontend/src/app/Services/basket.service.ts:60
+
+ 60     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add fd394102e041824dcfab7031d4056131_0
+
+File: juice-shop/frontend/src/app/Services/local-backup.service.ts:73
+
+ 73           }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add c634db9a79f620701dce9dcc52289faf_0
+
+File: juice-shop/frontend/src/app/about/about.component.ts:74
+
+ 74           console.error(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add c634db9a79f620701dce9dcc52289faf_1
+
+File: juice-shop/frontend/src/app/about/about.component.ts:112
+
+ 112           console.error(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4693b2404c730fcd69467486e2b6e3b_0
+
+File: juice-shop/frontend/src/app/accounting/accounting.component.ts:70
+
+ 70     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4693b2404c730fcd69467486e2b6e3b_1
+
+File: juice-shop/frontend/src/app/accounting/accounting.component.ts:78
+
+ 78     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4693b2404c730fcd69467486e2b6e3b_2
+
+File: juice-shop/frontend/src/app/accounting/accounting.component.ts:94
+
+ 94     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4693b2404c730fcd69467486e2b6e3b_3
+
+File: juice-shop/frontend/src/app/accounting/accounting.component.ts:116
+
+ 116       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4693b2404c730fcd69467486e2b6e3b_4
+
+File: juice-shop/frontend/src/app/accounting/accounting.component.ts:127
+
+ 127       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b4693b2404c730fcd69467486e2b6e3b_5
+
+File: juice-shop/frontend/src/app/accounting/accounting.component.ts:136
+
+ 136       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 1b6ce5b4b5d48840a1324d40edeca562_0
+
+File: juice-shop/frontend/src/app/address/address.component.ts:63
+
+ 63       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 1b6ce5b4b5d48840a1324d40edeca562_1
+
+File: juice-shop/frontend/src/app/address/address.component.ts:93
+
+ 93       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d87562f4ec9f8e4536a8569a3d1641cb_0
+
+File: juice-shop/frontend/src/app/administration/administration.component.ts:64
+
+ 64       console.log(this.error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d87562f4ec9f8e4536a8569a3d1641cb_1
+
+File: juice-shop/frontend/src/app/administration/administration.component.ts:79
+
+ 79       console.log(this.error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d87562f4ec9f8e4536a8569a3d1641cb_2
+
+File: juice-shop/frontend/src/app/administration/administration.component.ts:88
+
+ 88       console.log(this.error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b14933aa860382851469472d7bfe2f3b_0
+
+File: juice-shop/frontend/src/app/app.guard.ts:38
+
+ 38         console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5067336e38f3441f8a61aa08dc39b0c3_0
+
+File: juice-shop/frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.ts:84
+
+ 84             }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5067336e38f3441f8a61aa08dc39b0c3_1
+
+File: juice-shop/frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.ts:131
+
+ 131     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 47c4a5cb239b685ed0a33d4a5b1cef42_0
+
+File: juice-shop/frontend/src/app/challenge-status-badge/challenge-status-badge.component.ts:39
+
+ 39       }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add fd8cb3f125cf9658133ef55c4863b08f_0
+
+File: juice-shop/frontend/src/app/change-password/change-password.component.ts:59
+
+ 59       console.log(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add f1708b1ef1eb0e82b116c05928cbda43_0
+
+File: juice-shop/frontend/src/app/chatbot/chatbot.component.ts:80
+
+ 80       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 3b964766e441b4293ad295e89da83dae_0
+
+File: juice-shop/frontend/src/app/code-snippet/code-snippet.component.ts:72
+
+ 72     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 3b964766e441b4293ad295e89da83dae_1
+
+File: juice-shop/frontend/src/app/code-snippet/code-snippet.component.ts:176
+
+ 176         }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 3b964766e441b4293ad295e89da83dae_2
+
+File: juice-shop/frontend/src/app/code-snippet/code-snippet.component.ts:186
+
+ 186         }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 0bf9fa0efc54f10600d2f8fb3e177574_0
+
+File: juice-shop/frontend/src/app/complaint/complaint.component.ts:75
+
+ 75       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 468225772bb4486d75db503b9a666cbb_0
+
+File: juice-shop/frontend/src/app/contact/contact.component.ts:57
+
+ 57       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 468225772bb4486d75db503b9a666cbb_1
+
+File: juice-shop/frontend/src/app/contact/contact.component.ts:96
+
+ 96       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 05ab943f2d0803fde333d43b5695d99d_0
+
+File: juice-shop/frontend/src/app/delivery-method/delivery-method.component.ts:47
+
+ 47     }, (error) => { console.log(error) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 05ab943f2d0803fde333d43b5695d99d_1
+
+File: juice-shop/frontend/src/app/delivery-method/delivery-method.component.ts:50
+
+ 50       console.log(methods)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 05ab943f2d0803fde333d43b5695d99d_2
+
+File: juice-shop/frontend/src/app/delivery-method/delivery-method.component.ts:53
+
+ 53     }, (error) => { console.log(error) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2cf750608ee0793001992a0e98897137_0
+
+File: juice-shop/frontend/src/app/deluxe-user/deluxe-user.component.ts:72
+
+ 72     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_0
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:77
+
+ 77         console.log(response)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_1
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:80
+
+ 80         console.error(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_2
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:98
+
+ 98         console.error(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_3
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:127
+
+ 127       console.error('Error fetching BEE balance:', error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_4
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:142
+
+ 142       console.log(balance)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_5
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:145
+
+ 145       console.error('Error fetching BEE balance:', error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_6
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:200
+
+ 200       console.log('session', this.session)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_7
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:203
+
+ 203       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_8
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:238
+
+ 238       console.error('Error extracting BEEs:', error.message)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_9
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:273
+
+ 273       console.log(transaction)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_10
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:279
+
+ 279       console.log(mintConfirmation)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_11
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:293
+
+ 293               console.error(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d57587e37f5d21ac5227c49bf2e9a0ce_12
+
+File: juice-shop/frontend/src/app/faucet/faucet.component.ts:302
+
+ 302       console.error('Error minting NFT:', error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 16df30229be39ab877dd3cf6be1de7f6_0
+
+File: juice-shop/frontend/src/app/last-login-ip/last-login-ip.component.ts:27
+
+ 27       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 462197418e4f13c71499a9eef49192ab_0
+
+File: juice-shop/frontend/src/app/login/login.component.ts:77
+
+ 77           console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 462197418e4f13c71499a9eef49192ab_1
+
+File: juice-shop/frontend/src/app/login/login.component.ts:80
+
+ 80     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a0a0225bcf74d98b3595c867d2727b02_0
+
+File: juice-shop/frontend/src/app/navbar/navbar.component.ts:103
+
+ 103     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a0a0225bcf74d98b3595c867d2727b02_1
+
+File: juice-shop/frontend/src/app/navbar/navbar.component.ts:121
+
+ 121     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a0a0225bcf74d98b3595c867d2727b02_2
+
+File: juice-shop/frontend/src/app/navbar/navbar.component.ts:200
+
+ 200     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a0a0225bcf74d98b3595c867d2727b02_3
+
+File: juice-shop/frontend/src/app/navbar/navbar.component.ts:208
+
+ 208     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a0a0225bcf74d98b3595c867d2727b02_4
+
+File: juice-shop/frontend/src/app/navbar/navbar.component.ts:241
+
+ 241     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 83fc40fca8950aad0132f93aef21e4ce_0
+
+File: juice-shop/frontend/src/app/nft-unlock/nft-unlock.component.ts:37
+
+ 37         console.error(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 06e20cad342cb5aadb8dce7486a12246_0
+
+File: juice-shop/frontend/src/app/oauth/oauth.component.ts:51
+
+ 51     console.log(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add fecf65b6d3b5ec83dfc04c9d3b2fcd12_0
+
+File: juice-shop/frontend/src/app/order-completion/order-completion.component.ts:72
+
+ 72         }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add fecf65b6d3b5ec83dfc04c9d3b2fcd12_1
+
+File: juice-shop/frontend/src/app/order-completion/order-completion.component.ts:75
+
+ 75         }, (error) => { console.log(error) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add fecf65b6d3b5ec83dfc04c9d3b2fcd12_2
+
+File: juice-shop/frontend/src/app/order-completion/order-completion.component.ts:76
+
+ 76       }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add fecf65b6d3b5ec83dfc04c9d3b2fcd12_3
+
+File: juice-shop/frontend/src/app/order-completion/order-completion.component.ts:77
+
+ 77     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add c3d3fb15f8fd9e0243f0509d648f1b02_0
+
+File: juice-shop/frontend/src/app/order-history/order-history.component.ts:79
+
+ 79     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add c3d3fb15f8fd9e0243f0509d648f1b02_1
+
+File: juice-shop/frontend/src/app/order-history/order-history.component.ts:99
+
+ 99     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 00d772206271285744a0fcc77d875f5e_0
+
+File: juice-shop/frontend/src/app/order-summary/order-summary.component.ts:43
+
+ 43     }, (error) => { console.log(error) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 00d772206271285744a0fcc77d875f5e_1
+
+File: juice-shop/frontend/src/app/order-summary/order-summary.component.ts:49
+
+ 49       }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 00d772206271285744a0fcc77d875f5e_2
+
+File: juice-shop/frontend/src/app/order-summary/order-summary.component.ts:76
+
+ 76       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add bf09f635bcc095fcc8680ca6308a9aae_0
+
+File: juice-shop/frontend/src/app/payment-method/payment-method.component.ts:70
+
+ 70     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add bf09f635bcc095fcc8680ca6308a9aae_1
+
+File: juice-shop/frontend/src/app/payment-method/payment-method.component.ts:96
+
+ 96     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a335c349ff2f941ac9fbb32494aefa38_0
+
+File: juice-shop/frontend/src/app/payment/payment.component.ts:94
+
+ 94     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a335c349ff2f941ac9fbb32494aefa38_1
+
+File: juice-shop/frontend/src/app/payment/payment.component.ts:110
+
+ 110     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a335c349ff2f941ac9fbb32494aefa38_2
+
+File: juice-shop/frontend/src/app/payment/payment.component.ts:121
+
+ 121         }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a335c349ff2f941ac9fbb32494aefa38_3
+
+File: juice-shop/frontend/src/app/payment/payment.component.ts:130
+
+ 130     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a335c349ff2f941ac9fbb32494aefa38_4
+
+File: juice-shop/frontend/src/app/payment/payment.component.ts:195
+
+ 195         console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a335c349ff2f941ac9fbb32494aefa38_5
+
+File: juice-shop/frontend/src/app/payment/payment.component.ts:203
+
+ 203       }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9233e463dbeceaa97affc9fb04947372_0
+
+File: juice-shop/frontend/src/app/photo-wall/photo-wall.component.ts:48
+
+ 48       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9233e463dbeceaa97affc9fb04947372_1
+
+File: juice-shop/frontend/src/app/photo-wall/photo-wall.component.ts:67
+
+ 67       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9233e463dbeceaa97affc9fb04947372_2
+
+File: juice-shop/frontend/src/app/photo-wall/photo-wall.component.ts:97
+
+ 97       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 9c09f933978c0cd0f1de28b7a23fd098_0
+
+File: juice-shop/frontend/src/app/privacy-policy/privacy-policy.component.ts:37
+
+ 37     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add efcbdd405be4defc6afd5acb4ce739e0_0
+
+File: juice-shop/frontend/src/app/product-details/product-details.component.ts:55
+
+ 55     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add efcbdd405be4defc6afd5acb4ce739e0_1
+
+File: juice-shop/frontend/src/app/product-details/product-details.component.ts:70
+
+ 70     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add efcbdd405be4defc6afd5acb4ce739e0_2
+
+File: juice-shop/frontend/src/app/product-details/product-details.component.ts:86
+
+ 86       console.log('Liked ' + review._id)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d75f3fcd25bc8e20a7ce3aaab587b3f4_0
+
+File: juice-shop/frontend/src/app/product-review-edit/product-review-edit.component.ts:46
+
+ 46       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2f1375d742b8c96d926b8c30cd0fe122_0
+
+File: juice-shop/frontend/src/app/purchase-basket/purchase-basket.component.ts:51
+
+ 51     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2f1375d742b8c96d926b8c30cd0fe122_1
+
+File: juice-shop/frontend/src/app/purchase-basket/purchase-basket.component.ts:67
+
+ 67     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2f1375d742b8c96d926b8c30cd0fe122_2
+
+File: juice-shop/frontend/src/app/purchase-basket/purchase-basket.component.ts:74
+
+ 74     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2f1375d742b8c96d926b8c30cd0fe122_3
+
+File: juice-shop/frontend/src/app/purchase-basket/purchase-basket.component.ts:94
+
+ 94         console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2f1375d742b8c96d926b8c30cd0fe122_4
+
+File: juice-shop/frontend/src/app/purchase-basket/purchase-basket.component.ts:96
+
+ 96     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d23429dee88ff981f4cb09e845f9ace2_0
+
+File: juice-shop/frontend/src/app/recycle/recycle.component.ts:59
+
+ 59     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d23429dee88ff981f4cb09e845f9ace2_1
+
+File: juice-shop/frontend/src/app/recycle/recycle.component.ts:73
+
+ 73     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d23429dee88ff981f4cb09e845f9ace2_2
+
+File: juice-shop/frontend/src/app/recycle/recycle.component.ts:103
+
+ 103       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d23429dee88ff981f4cb09e845f9ace2_3
+
+File: juice-shop/frontend/src/app/recycle/recycle.component.ts:111
+
+ 111       console.log(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 316a21b2164ef4534eb1b962e2380f40_0
+
+File: juice-shop/frontend/src/app/register/register.component.ts:64
+
+ 64     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 316a21b2164ef4534eb1b962e2380f40_1
+
+File: juice-shop/frontend/src/app/register/register.component.ts:88
+
+ 88       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_0
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:128
+
+ 128     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_1
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:176
+
+ 176     console.log(`Starting instructions for challenge "${challengeName}"`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_2
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:211
+
+ 211               }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_3
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:214
+
+ 214               console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_4
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:216
+
+ 216           }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_5
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:230
+
+ 230           }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_6
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:233
+
+ 233           console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5da3963cd25e7c2a1d4f667f670e76f7_7
+
+File: juice-shop/frontend/src/app/search-result/search-result.component.ts:236
+
+ 236     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add def2939e9d3b0bc2910f37da9bbd538c_0
+
+File: juice-shop/frontend/src/app/server-started-notification/server-started-notification.component.ts:47
+
+ 47             console.log(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add def2939e9d3b0bc2910f37da9bbd538c_1
+
+File: juice-shop/frontend/src/app/server-started-notification/server-started-notification.component.ts:58
+
+ 58             console.log(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add def2939e9d3b0bc2910f37da9bbd538c_2
+
+File: juice-shop/frontend/src/app/server-started-notification/server-started-notification.component.ts:64
+
+ 64             console.log(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8f7904df868680bda37dd1ec16c84193_0
+
+File: juice-shop/frontend/src/app/sidenav/sidenav.component.ts:54
+
+ 54     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8f7904df868680bda37dd1ec16c84193_1
+
+File: juice-shop/frontend/src/app/sidenav/sidenav.component.ts:85
+
+ 85     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8f7904df868680bda37dd1ec16c84193_2
+
+File: juice-shop/frontend/src/app/sidenav/sidenav.component.ts:110
+
+ 110     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8f7904df868680bda37dd1ec16c84193_3
+
+File: juice-shop/frontend/src/app/sidenav/sidenav.component.ts:116
+
+ 116     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8f7904df868680bda37dd1ec16c84193_4
+
+File: juice-shop/frontend/src/app/sidenav/sidenav.component.ts:134
+
+ 134     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 6c245db688d2051444e5e3a4e2615478_0
+
+File: juice-shop/frontend/src/app/token-sale/token-sale.component.ts:34
+
+ 34     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 01e35a4b51c17a57c6f0d1266ea78a4c_0
+
+File: juice-shop/frontend/src/app/user-details/user-details.component.ts:32
+
+ 32     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 05a7724541dd970d7fc422703bb6f3f2_0
+
+File: juice-shop/frontend/src/app/wallet-web3/wallet-web3.component.ts:132
+
+ 132           console.error(error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 05a7724541dd970d7fc422703bb6f3f2_1
+
+File: juice-shop/frontend/src/app/wallet-web3/wallet-web3.component.ts:168
+
+ 168       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add a79beedecdd9756234687684b1ad1eb8_0
+
+File: juice-shop/frontend/src/app/wallet/wallet.component.ts:34
+
+ 34       console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_0
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:107
+
+ 107         console.log(output.errors)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_1
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:111
+
+ 111         console.log('output', output)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_2
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:117
+
+ 117       console.error('Error compiling contracts:', error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_3
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:172
+
+ 172       console.log(this.contractFunctions)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_4
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:174
+
+ 174       console.error('Error deploying contract:', error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_5
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:225
+
+ 225       console.log(transaction)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_6
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:243
+
+ 243         console.log(func.outputValue)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_7
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:245
+
+ 245       console.log('Invoked:', transaction)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_8
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:247
+
+ 247       console.error('Error invoking function', error)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 299ca45e71bdd91e56ec45e6e40a76d7_9
+
+File: juice-shop/frontend/src/app/web3-sandbox/web3-sandbox.component.ts:310
+
+ 310       console.log('session', this.session)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 36718d28401e4f0331d66239e08d787c_0
+
+File: juice-shop/frontend/src/app/welcome-banner/welcome-banner.component.ts:48
+
+ 48     }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 91a1f80d54ae7965b530b213fe3102bc_0
+
+File: juice-shop/frontend/src/app/welcome/welcome.component.ts:38
+
+ 38       }, (err) => { console.log(err) })
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 6ac582de3bd2e8eb7c6e53b50e269d59_0
+
+File: juice-shop/frontend/src/hacking-instructor/helpers/helpers.ts:111
+
+ 111       console.warn(`Could not find Element with selector "${elementSelector}"`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 0d9252cb69df2647b3a6afb5b29079f1_0
+
+File: juice-shop/frontend/src/hacking-instructor/index.ts:192
+
+ 192       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 6fad641e2bdab9ded43e926065a6cd22_0
+
+File: juice-shop/frontend/src/main.ts:152
+
+ 152   .catch((err: Error) => console.log(err))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8c0a7f555cbcff28edf59a649861e286_0
+
+File: juice-shop/lib/accuracy.ts:58
+
+ 58   logger.info(`Accuracy for '${phase === 'fix it' ? 'Fix It' : 'Find It'}' phase of coding challenge ${colors.cyan(challengeKey)}: ${accuracy > 0.5 ? colors.green(accuracy.toString()) : (accuracy > 0.25 ? colors.yellow(accuracy.toString()) : colors.red(accuracy.toString()))}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 42b8fff9bf5f1af1dd48c21f07ec284b_0
+
+File: juice-shop/lib/antiCheat.ts:77
+
+ 77   logger.info(`Cheat score for ${areCoupled(challenge, previous().challenge) ? 'coupled ' : (isTrivial(challenge) ? 'trivial ' : '')}${challenge.tutorialOrder ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min) with${config.get('challenges.showHints') ? '' : 'out'} hints allowed${percentPrecedingInteraction > -1 ? (' and ' + percentPrecedingInteraction * 100 + '% expected preceding URL interaction') : ''}: ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 42b8fff9bf5f1af1dd48c21f07ec284b_1
+
+File: juice-shop/lib/antiCheat.ts:102
+
+ 102   logger.info(`Cheat score for "Find it" phase of ${challenge.key === 'scoreBoardChallenge' && config.get('hackingInstructor.isEnabled') ? 'tutorial ' : ''}${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 42b8fff9bf5f1af1dd48c21f07ec284b_2
+
+File: juice-shop/lib/antiCheat.ts:117
+
+ 117   logger.info(`Cheat score for "Fix it" phase of ${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add af87f04b5989f7a4c9694cf6e5bdaf15_0
+
+File: juice-shop/lib/challengeUtils.ts:30
+
+ 30     logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add af87f04b5989f7a4c9694cf6e5bdaf15_1
+
+File: juice-shop/lib/challengeUtils.ts:36
+
+ 36           logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add af87f04b5989f7a4c9694cf6e5bdaf15_2
+
+File: juice-shop/lib/challengeUtils.ts:83
+
+ 83   logger.warn('Missing challenge with name: ' + challengeName)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add af87f04b5989f7a4c9694cf6e5bdaf15_3
+
+File: juice-shop/lib/challengeUtils.ts:92
+
+ 92   logger.warn('Missing challenge with id: ' + challengeId)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add af87f04b5989f7a4c9694cf6e5bdaf15_4
+
+File: juice-shop/lib/challengeUtils.ts:98
+
+ 98   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add af87f04b5989f7a4c9694cf6e5bdaf15_5
+
+File: juice-shop/lib/challengeUtils.ts:110
+
+ 110   logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add ec2e0c3e74007c09d397f9fe2e30fe44_0
+
+File: juice-shop/lib/codingChallenges.ts:38
+
+ 38         logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 2675f9a83f26f018e0b4ce9c85e7962f_0
+
+File: juice-shop/lib/startup/cleanupFtpFolder.ts:18
+
+ 18     logger.warn('Error listing PDF files in /ftp folder: ' + utils.getErrorMessage(err))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add d9967d065cbf0d2ae0627b6c1077c132_0
+
+File: juice-shop/lib/startup/restoreOverwrittenFilesWithOriginals.ts:32
+
+ 32     logger.warn('Error listing JSON files in /data/static/i18n folder: ' + utils.getErrorMessage(err))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 44789e5257122444666de6e3f9858d5a_0
+
+File: juice-shop/lib/startup/validateChatBot.ts:17
+
+ 17     logger.info(`Chatbot training data ${colors.bold(utils.extractFilename(config.get('application.chatBot.trainingData')))} validated (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 44789e5257122444666de6e3f9858d5a_1
+
+File: juice-shop/lib/startup/validateChatBot.ts:19
+
+ 19     logger.warn(`Chatbot training data ${colors.bold(utils.extractFilename(config.get('application.chatBot.trainingData')))} validated (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 44789e5257122444666de6e3f9858d5a_2
+
+File: juice-shop/lib/startup/validateChatBot.ts:20
+
+ 20     logger.warn(`Visit ${colors.yellow('https://pwning.owasp-juice.shop/companion-guide/latest/part5/chatbot.html')} for the training data schema definition.`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 44789e5257122444666de6e3f9858d5a_3
+
+File: juice-shop/lib/startup/validateChatBot.ts:22
+
+ 22       logger.error(colors.red('Exiting due to configuration errors!'))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 44789e5257122444666de6e3f9858d5a_4
+
+File: juice-shop/lib/startup/validateChatBot.ts:33
+
+ 33     logger.warn(`Intent ${colors.italic(intent)} is missing in chatbot training data (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 44789e5257122444666de6e3f9858d5a_5
+
+File: juice-shop/lib/startup/validateChatBot.ts:37
+
+ 37       logger.warn(`Answer with ${colors.italic('function')} action and handler ${colors.italic(handler)} is missing for intent ${colors.italic(intent)} (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_0
+
+File: juice-shop/lib/startup/validateConfig.ts:44
+
+ 44     logger.info(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_1
+
+File: juice-shop/lib/startup/validateConfig.ts:46
+
+ 46     logger.warn(`Configuration ${colors.bold(process.env.NODE_ENV ?? 'default')} validated (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_2
+
+File: juice-shop/lib/startup/validateConfig.ts:47
+
+ 47     logger.warn(`Visit ${colors.yellow('https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html#_yaml_configuration_file')} for the configuration schema definition.`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_3
+
+File: juice-shop/lib/startup/validateConfig.ts:49
+
+ 49       logger.error(colors.red('Exiting due to configuration errors!'))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_4
+
+File: juice-shop/lib/startup/validateConfig.ts:60
+
+ 60     logger.warn(`Config schema validation failed with ${schemaErrors.length} errors (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_5
+
+File: juice-shop/lib/startup/validateConfig.ts:62
+
+ 62       logger.warn(`${path}:${colors.red(message.substr(message.indexOf(path) + path.length))}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_6
+
+File: juice-shop/lib/startup/validateConfig.ts:72
+
+ 72     logger.warn(`Only ${products.length} products are configured but at least four are required (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_7
+
+File: juice-shop/lib/startup/validateConfig.ts:84
+
+ 84       logger.warn(`No product is configured as ${colors.italic(name)} but one is required (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_8
+
+File: juice-shop/lib/startup/validateConfig.ts:87
+
+ 87       logger.warn(`${matchingProducts.length} products are configured as ${colors.italic(name)} but only one is allowed (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_9
+
+File: juice-shop/lib/startup/validateConfig.ts:101
+
+ 101       logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(`${extra.name}`)} (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_10
+
+File: juice-shop/lib/startup/validateConfig.ts:114
+
+ 114       logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_11
+
+File: juice-shop/lib/startup/validateConfig.ts:124
+
+ 124     logger.warn(`Only ${memories.length} memories are configured but at least two are required (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_12
+
+File: juice-shop/lib/startup/validateConfig.ts:135
+
+ 135       logger.warn(`No memory is configured as ${colors.italic(name)} but one is required (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_13
+
+File: juice-shop/lib/startup/validateConfig.ts:138
+
+ 138       logger.warn(`${matchingMemories.length} memories are configured as ${colors.italic(name)} but only one is allowed (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_14
+
+File: juice-shop/lib/startup/validateConfig.ts:150
+
+ 150       logger.warn(`Memory configured as ${colors.italic(name)} must belong to user ${colors.italic(user)} but was linked to ${colors.italic(matchingMemories[0].user ?? 'unknown')} user (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_15
+
+File: juice-shop/lib/startup/validateConfig.ts:162
+
+ 162       logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_16
+
+File: juice-shop/lib/startup/validateConfig.ts:172
+
+ 172     logger.warn(`Restricted tutorial mode is enabled while Hacking Instructor is disabled (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_17
+
+File: juice-shop/lib/startup/validateConfig.ts:176
+
+ 176     logger.warn(`CTF flags are enabled while challenge solved notifications are disabled (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 8008abf2970450d205beac61e17dfa21_18
+
+File: juice-shop/lib/startup/validateConfig.ts:180
+
+ 180     logger.warn(`CTF country mappings for FBCTF are enabled while CTF flags are disabled (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5b898d003bb88729614a36acc0e9ecdc_0
+
+File: juice-shop/lib/startup/validateDependencies.ts:18
+
+ 18     logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} could not be checked due to "${utils.getErrorMessage(err)}" error (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5b898d003bb88729614a36acc0e9ecdc_1
+
+File: juice-shop/lib/startup/validateDependencies.ts:22
+
+ 22     logger.info(`All dependencies in ${colors.bold(packageDir + '/package.json')} are satisfied (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5b898d003bb88729614a36acc0e9ecdc_2
+
+File: juice-shop/lib/startup/validateDependencies.ts:24
+
+ 24     logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} are not rightly satisfied (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5b898d003bb88729614a36acc0e9ecdc_3
+
+File: juice-shop/lib/startup/validateDependencies.ts:27
+
+ 27       logger.warn(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5b898d003bb88729614a36acc0e9ecdc_4
+
+File: juice-shop/lib/startup/validateDependencies.ts:32
+
+ 32     logger.error(colors.red('Exiting due to unsatisfied dependencies!'))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_0
+
+File: juice-shop/lib/startup/validatePreconditions.ts:41
+
+ 41     logger.error(colors.red('Exiting due to unsatisfied precondition!'))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_1
+
+File: juice-shop/lib/startup/validatePreconditions.ts:51
+
+ 51     logger.warn(`Invalid Node.js version range ${colors.bold(supportedVersion)} in package.json (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_2
+
+File: juice-shop/lib/startup/validatePreconditions.ts:55
+
+ 55     logger.warn(`Detected Node version ${colors.bold(runningVersion)} is not in the supported version range of ${supportedVersion} (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_3
+
+File: juice-shop/lib/startup/validatePreconditions.ts:58
+
+ 58   logger.info(`Detected Node.js version ${colors.bold(runningVersion)} (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_4
+
+File: juice-shop/lib/startup/validatePreconditions.ts:65
+
+ 65     logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_5
+
+File: juice-shop/lib/startup/validatePreconditions.ts:68
+
+ 68   logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_6
+
+File: juice-shop/lib/startup/validatePreconditions.ts:75
+
+ 75     logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_7
+
+File: juice-shop/lib/startup/validatePreconditions.ts:78
+
+ 78   logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_8
+
+File: juice-shop/lib/startup/validatePreconditions.ts:85
+
+ 85       logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_9
+
+File: juice-shop/lib/startup/validatePreconditions.ts:89
+
+ 89       logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_10
+
+File: juice-shop/lib/startup/validatePreconditions.ts:92
+
+ 92         logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_11
+
+File: juice-shop/lib/startup/validatePreconditions.ts:106
+
+ 106           logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_12
+
+File: juice-shop/lib/startup/validatePreconditions.ts:109
+
+ 109           logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_13
+
+File: juice-shop/lib/startup/validatePreconditions.ts:121
+
+ 121     logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5c01336b8dba6e659ec32b986bbf0cbd_14
+
+File: juice-shop/lib/startup/validatePreconditions.ts:124
+
+ 124     logger.warn(`Required file ${colors.bold(fileName)} is missing (${colors.red('NOT OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add bcc7ff473822fc3fbb0658fd73b00a4f_0
+
+File: juice-shop/lib/utils.ts:126
+
+ 126     logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add ee827b35b1f5654cb196376138796ac4_0
+
+File: juice-shop/lib/webhook.ts:38
+
+ 38   logger.info(`Webhook ${colors.bold(webhook)} notified about ${colors.cyan(challenge.key)} being solved: ${res.ok ? colors.green(res.status.toString()) : colors.red(res.status.toString())}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 3745cdc8e9025d11a9d0ee877d0cbdb8_0
+
+File: juice-shop/routes/order.ts:182
+
+ 182     console.log(discount)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b733d86b55e7b3ea612fb3f215de2db9_0
+
+File: juice-shop/routes/profileImageFileUpload.ts:45
+
+ 45       logger.warn('Error writing file: ' + (err instanceof Error ? err.message : String(err)))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 6271fa8901ddca3980112579be1215b7_0
+
+File: juice-shop/routes/profileImageUrlUpload.ts:36
+
+ 36             logger.warn(`Error retrieving user profile image: ${utils.getErrorMessage(error)}; using image link directly`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 65466e159533b983b45555bfc31a1ab7_0
+
+File: juice-shop/rsn/rsn-update.ts:9
+
+ 9     console.log(`${colors.bold('All file diffs have been locked!')} Commit changed cache.json to git.`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 65466e159533b983b45555bfc31a1ab7_1
+
+File: juice-shop/rsn/rsn-update.ts:12
+
+ 12     console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5a76fb8dc6e39328de2d03f62248b4a9_0
+
+File: juice-shop/rsn/rsn-verbose.ts:11
+
+ 11       console.log(`${colors.green(colors.bold('No new file diffs recognized since last lock!'))} No action required.`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5a76fb8dc6e39328de2d03f62248b4a9_1
+
+File: juice-shop/rsn/rsn-verbose.ts:13
+
+ 13       console.log(`${colors.red(colors.bold('New file diffs recognized since last lock!'))} Double-check and amend listed files and lock new state with ${colors.bold('npm run rsn:update')}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5a76fb8dc6e39328de2d03f62248b4a9_2
+
+File: juice-shop/rsn/rsn-verbose.ts:14
+
+ 14       console.log(`Be aware that diffs for the ${filesWithDiff.length} affected files below contain ${colors.bold('all changes')} including locked & cached ones! Compare carefully!`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 5a76fb8dc6e39328de2d03f62248b4a9_3
+
+File: juice-shop/rsn/rsn-verbose.ts:22
+
+ 22     console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b9f4eb3b0b71eb1106d5536674331dda_0
+
+File: juice-shop/rsn/rsn.ts:11
+
+ 11       console.log(`${colors.green(colors.bold('No new file diffs recognized since last lock!'))} No action required.`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b9f4eb3b0b71eb1106d5536674331dda_1
+
+File: juice-shop/rsn/rsn.ts:13
+
+ 13       console.log(`${colors.red(colors.bold('New file diffs recognized since last lock!'))} Double-check and amend listed files and lock new state with ${colors.bold('npm run rsn:update')}`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add b9f4eb3b0b71eb1106d5536674331dda_2
+
+File: juice-shop/rsn/rsn.ts:19
+
+ 19     console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_0
+
+File: juice-shop/rsn/rsnUtil.ts:100
+
+ 100         console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_1
+
+File: juice-shop/rsn/rsnUtil.ts:111
+
+ 111   console.log(colors.bold(file + '\n'))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_2
+
+File: juice-shop/rsn/rsnUtil.ts:115
+
+ 115         console.log(colors.red(line))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_3
+
+File: juice-shop/rsn/rsnUtil.ts:117
+
+ 117         console.log(colors.green(line))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_4
+
+File: juice-shop/rsn/rsnUtil.ts:119
+
+ 119         console.log(line)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_5
+
+File: juice-shop/rsn/rsnUtil.ts:135
+
+ 135         console.log(colors.red(key))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_6
+
+File: juice-shop/rsn/rsnUtil.ts:139
+
+ 139         console.log(colors.red(key))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 727ba8a3319fa521fdcfbffdd6989f60_7
+
+File: juice-shop/rsn/rsnUtil.ts:143
+
+ 143       console.log(colors.red(key))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_0
+
+File: juice-shop/server.ts:154
+
+ 154       console.error('Error in timed startup function: ' + name, err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_1
+
+File: juice-shop/server.ts:499
+
+ 499           console.log(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_2
+
+File: juice-shop/server.ts:658
+
+ 658   console.error(err)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_3
+
+File: juice-shop/server.ts:690
+
+ 690   logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_4
+
+File: juice-shop/server.ts:692
+
+ 692 logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.green('OK')})`)
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_5
+
+File: juice-shop/server.ts:712
+
+ 712     logger.info(colors.cyan(`Server listening on port ${colors.bold(`${port}`)}`))
+
+LOW: Leakage of information in logger message [CWE-532]
+https://docs.bearer.com/reference/rules/javascript_lang_logger_leak
+To ignore this finding, run: bearer ignore add 602478eb7d16a5a0e5086caf562308ec_6
+
+File: juice-shop/server.ts:715
+
+ 715       logger.info(colors.cyan(`Server using proxy base path ${colors.bold(`${process.env.BASE_PATH}`)} for redirects`))
+=====================================
+
+396 checks, 341 findings
+
+CRITICAL: 21 (CWE-502, CWE-798, CWE-89, CWE-95)
+HIGH: 20 (CWE-22, CWE-312, CWE-73, CWE-79, CWE-918)
+MEDIUM: 34 (CWE-1333, CWE-208, CWE-328, CWE-532, CWE-601, CWE-693)
+LOW: 266 (CWE-330, CWE-532, CWE-548)
+WARNING: 0
+
